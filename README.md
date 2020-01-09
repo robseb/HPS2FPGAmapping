@@ -1,37 +1,39 @@
 # Mapping HPS Peripherals, like I²C or CAN, over the FPGA fabric to FPGA I/O and using embedded Linux to control them
 
-[Head Image]
-
+![Alt text](doc/conceptHeader.jpg?raw=true "Concept Overview")
 
 Development Board’s for Intel SoC-FPGA allow often only a simple access to FPGA I/O-Pins. 
-The only way to use HPS-Hard-IP Interfaces with these board’s are the routing over the FPGA fabric.
+The only way to use HPS-Hard-IP Interfaces with these boards are the routing over the FPGA fabric.
 
-For example, has the Terasic DE10-Nano development Board an Arduino UNO compatible socket. 
-This is a nice feature, because it is possible to use nearly any Arduino Shield from the huge Arduino community with SoC-FPGA’s. 
-Here are also all Digital Pins connected to FPGA I/O Pins. 
-With the Intel NIOSII-Softcore processor and some Soft-IP it is not too complicated to interact with these shields. 
+For example, has the **Terasic DE10-Nano** development Board an Arduino UNO compatible socket. 
+This is a nice feature, because it is possible to use nearly any Arduino Shield from the huge *Arduino* community with SoC-FPGA’s. 
+Here are also all digital Pins connected to FPGA I/O Pins. 
+With the Intel *NIOSII*-Softcore processor and some Soft-IP it is not too complicated to interact with these shields. 
 But if the target applications require the connection of the capabilities of an embedded Linux system, running on the HPS, 
-it will be. One reason is, that I only could find an official guide (AN 706), 
-with a golden reference design a part of the required development steps.
+it will be. One reason is, that I only could find an official guide ([AN 706](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/an/an706.pdf)), 
+with a *golden reference* design witch shows only a part of the required development steps.
 
-With this following step by step guide I will give a complete description and I will also show as an example, 
-how to transmit CAN-Bus Packages with a simple Linux Python script by using an Arduino Shield with the Terasic DE10-Nano board.
+**With this following step by step guide I will give a complete description and I will also show as an example, 
+how to transmit CAN-Bus Packages with a simple Linux Python script by using an Arduino Shield with the Terasic DE10-Nano board.**
 
-This project is a part of my rsYocto embedded Linux system, 
+This project is a part of my [*rsYocto* embedded Linux system](https://github.com/robseb/rsyocto), 
 that I developed during my master study and I will it also use it here.
 
-The build flow of rsYocto show the interaction of all for this project required components.
+**The build flow of rsYocto show the interaction of all for this project required components**
 
-[Build Flow Image]
+![Alt text](doc/rsYoctoBuildFlow.jpg?raw=true "rsYocto Build flow")
 
-# 1. part: Creating the HPS FPGA-configuration 
+<br>
 
-* Use Terasic’s System Builder to generate an Intel Quartus Prime project with right I/O-Pin mapping
-* Open this Quartus Prime Project and create a new Platform Designer model
+# 1. Part: Creating the FPGA configuration
+The first part of this project is the creation of a **Quartus Prime FPGA project** to configure the **ARM Cortex A9 Hard Processor System (HPS)** and the routing of HPS Bus Interfaces through the FPGA fabric. At the end will be a FPGA configuration file generated, that can be loaded by the secondary bootloader as shown in the next parts.
+
+* Use **Terasic’s System Builder** to generate a new  **Intel Quartus Prime project** with right I/O-Pin mapping
+* Open this Quartus Prime Project and **create a new Platform Designer model**
 * Insert the component “Arria V/Cyclone V Hard Processor System” to this model
 * It should look like this:
 	[Image 1]
-* Note: Do not change the name “hps_0”!  With a different name could occur some errors with in the device tree building process of the Linux system with Intel EDS
+* Note: Do not change the name “hps_0”!  With a different name could occur some errors with in the device tree building process of the Linux system
 
 ### HPS component configuration 
 
