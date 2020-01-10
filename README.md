@@ -212,7 +212,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		.hps_0_can0_txd                     (can0_tx),		
 	  	 ````
     * **SPI0:**
-	   ````verilog
+	   	````verilog
 		.hps_0_spim0_sclk_out_clk           (spi0_clk),          
 		.hps_0_spim0_txd                    (spi0_mosi),                    
 		.hps_0_spim0_rxd                    (spi0_miso),                  
@@ -222,7 +222,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		.hps_0_spim0_ss_1_n                 (),               
 		.hps_0_spim0_ss_2_n                 (),                 
 		.hps_0_spim0_ss_3_n                 (),
-	    ````
+	    	````
 	* Above the top level file use following lines to **create wires as temporary In-/Output-values**
 		````verilog
 		//// IO Buffer Temp I2c 1 & 3 
@@ -242,37 +242,37 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		
 	* Add at the end of the file following lines of verilog code
 		*  **UART1:**
-		````verilog
-		// UART1 -> RX
-		ALT_IOBUF uart1_rx_iobuf (.i(1'b0), .oe(1'b0), .o(uart1_rx), .io(ARDUINO_IO[1]));
-		// UART1 -> TX
-		ALT_IOBUF uart1_tx_iobuf (.i(uart1_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[0]));
-      		````
+			````verilog
+			// UART1 -> RX
+			ALT_IOBUF uart1_rx_iobuf (.i(1'b0), .oe(1'b0), .o(uart1_rx), .io(ARDUINO_IO[1]));
+			// UART1 -> TX
+			ALT_IOBUF uart1_tx_iobuf (.i(uart1_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[0]));
+			````
 		*  **I2C1:**
-		````verilog
-	    	// I2C1 -> SCL 
-	    	ALT_IOBUF i2c1_scl_iobuf   (.i(1'b0),.oe(scl1_o_e),.o(scl1_o),.io(ARDUINO_IO[15]));
-	  	// I2C1 -> SDA 
-	  	ALT_IOBUF i2c1_sda_iobuf   (.i(1'b0),.oe(sda1_o_e),.o(sda1_o),.io(ARDUINO_IO[14]));
-	  	````
+			````verilog
+			// I2C1 -> SCL 
+			ALT_IOBUF i2c1_scl_iobuf   (.i(1'b0),.oe(scl1_o_e),.o(scl1_o),.io(ARDUINO_IO[15]));
+			// I2C1 -> SDA 
+			ALT_IOBUF i2c1_sda_iobuf   (.i(1'b0),.oe(sda1_o_e),.o(sda1_o),.io(ARDUINO_IO[14]));
+			````
 		* **CAN0:**
-	   	````verilog
-		// CANO -> RX
-		ALT_IOBUF can0_rx_iobuf (.i(1'b0), .oe(1'b0), .o(can0_rx), .io(ARDUINO_IO[9]));
-		// CAN-> TX
-		ALT_IOBUF can0_tx_iobuf (.i(can0_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[8]));
-	 	 ````
+			````verilog
+			// CANO -> RX
+			ALT_IOBUF can0_rx_iobuf (.i(1'b0), .oe(1'b0), .o(can0_rx), .io(ARDUINO_IO[9]));
+			// CAN-> TX
+			ALT_IOBUF can0_tx_iobuf (.i(can0_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[8]));
+			 ````
 		 * **SPI0:**
-	   	````verilog
-		// SPI0 -> CS
-		ALT_IOBUF spi0_ss_iobuf    (.i(spi0_ss_0_n), .oe(1'b1), .o(), .io(ARDUINO_IO[10]));
-		// SPI0 -> MOSI
-		ALT_IOBUF spi0_mosi_iobuf  (.i(spi0_mosi), .oe(1'b1), .o(), .io(ARDUINO_IO[11]));
-		// SPI0 -> MISO 
-		ALT_IOBUF spi0_miso_iobuf  (.i(1'b0), .oe(1'b0), .o(spi0_miso), .io(ARDUINO_IO[12]));
-		// SPI0  -> CLK
-		ALT_IOBUF spi0_clk_iobuf   (.i(spi0_clk), .oe(1'b1), .o(), .io(ARDUINO_IO[13]));
-	 	 ````
+			````verilog
+			// SPI0 -> CS
+			ALT_IOBUF spi0_ss_iobuf    (.i(spi0_ss_0_n), .oe(1'b1), .o(), .io(ARDUINO_IO[10]));
+			// SPI0 -> MOSI
+			ALT_IOBUF spi0_mosi_iobuf  (.i(spi0_mosi), .oe(1'b1), .o(), .io(ARDUINO_IO[11]));
+			// SPI0 -> MISO 
+			ALT_IOBUF spi0_miso_iobuf  (.i(1'b0), .oe(1'b0), .o(spi0_miso), .io(ARDUINO_IO[12]));
+			// SPI0  -> CLK
+			ALT_IOBUF spi0_clk_iobuf   (.i(spi0_clk), .oe(1'b1), .o(), .io(ARDUINO_IO[13]));
+			 ````
 	* This Top-level Verilog file is also available inside my Github repository
 	* Save the file
 	
