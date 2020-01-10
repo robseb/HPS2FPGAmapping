@@ -565,9 +565,9 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
  Or to use the onboard `nano`editor to write the python code.
  
  * Create a new Python file, for example:
-  ````bash
-  nano sendCanPackage.py
-  ````
+   ````bash
+   nano sendCanPackage.py
+   ````
   * Insert following lines to this python file as shown in the [python-can documentation](https://python-can.readthedocs.io/en/master/)
 	  ````python
 	    #!/usr/bin/env python
