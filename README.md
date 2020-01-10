@@ -611,18 +611,19 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
 
 	if __name__ == '__main__':
 		send_one()
-    	````
+	````
   * Save and close this python file or **start a debugging session** with *Visual Studio Code Insider*
   * Connect to the **Adrunio Pin D8** to **CAN TX** and the Pin **D9** to **CAN RX** on a 3.3V Can-Bus Transiver
   * **Execute the python script**
     ```python 
     python3 sendCanPackage.py
     ````
-  * Now the Cyclone V SoC-FPGA **transmits a CAN package through the Arduino header with the ID 0xAC and Payload 0xACADAE**:
+  * Now the Cyclone V SoC-FPGA **transmits a CAN package through the Arduino header with the ID 0xAC and the Payload 0xABACADAE**:
   
   	![Alt text](doc/CANoszigram.png?raw=true "CAN Osci")
 
-The embedded *Bosch CAN-Controller* can **detect linkage errors**. 
+If no one acknowledged this package the *Bosch CAN-Controller* *re-transmit* the package with the maximum available resources until a ACK happen automatically.
+The embedded *Bosch CAN-Controller* can also **detect linkage errors**. 
 I case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the **CAN Controller shuts down**.
 Use the following command to **restart the CAN-Controller**:
 ````bash 
