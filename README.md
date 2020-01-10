@@ -32,7 +32,8 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 * Open this Quartus Prime Project and **create a new Platform Designer model**
 * Insert the component “Arria V/Cyclone V Hard Processor System” to this model
 * It should look like this:
-	[Image 1]
+	![Alt text](doc/docPic_01.jpg?raw=true "Picture 01")
+	
 * Note: Do not change the name “hps_0”!  With a different name some errors could occure in the device tree building process of the Linux system
 
 ### HPS component configuration 
@@ -41,7 +42,9 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 * Here you can configure the system on your own wishes
 * It makes sense to enable all AXI Bridges, they are not required for this project, but if a Linux application tries to access on a disabled bridge address a Linux Kernel panic will be occured.
 * I choose the following configuration:
-	[Image 2]
+
+	![Alt text](doc/docPic_02.jpg?raw=true "Picture 02")
+	
 * Special Resets-, Interrupts- or DMA-Settings are not required
 * Continue with the “**Peripheral Pins**”-Tab
 * For the usage of DE10-Nano`s HPS components choose the following settings:
@@ -52,32 +55,41 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	| SD/MMC Controller (**SDIO**) | *HPS I/O Set 0* | *SDIO mode ="4-bit Data"*
 	|USB Controller 1 (**USB1**) | *HPS I/O Set 0* | *USB1 PHY interface mode="SDR with PHY clock output mode"*
 	| UART Controller 0 (**UART0**) | *HPS I/O Set 0* | *UART0 mode="No Flow Control"*
-	| I2C Controller 0 (**I2C0 **) | *HPS I/O Set 0* | *I2C0 mode="I2C"*
+	| I2C Controller 0 (**I2C0**) | *HPS I/O Set 0* | *I2C0 mode="I2C"*
 
 * To map the I²C-, SPI- , UART- and CAN-Bus select these points addionaly:
+
 	| **Peripheral Name** | **Startus** | **Addional Settings**
 	|:--|:--|:--|
 	| UART Controller 1 (**UART1**) | *FPGA* | *UART0 mode="Full"*
 	| I2C Controller 1 (**I2C1**) | *FPGA* | *I2C0 mode="Full"*
 	| SPI Controller 0 (**SPI0**) | *FPGA* | *I2C0 mode="Full"*
 	| CAN Controller 0 (**CAN0**) | *FPGA* | *I2C0 mode="Full"*
-* Screenshots of my configuration are available here [Image 3]  and here [Image 4]
+	
+* Screenshots of my configuration are available [here](https://raw.githubusercontent.com/robseb/HPS2FPGAmapping/master/doc/docPic_03.jpg?token=ABHT5ONKTEET4Y4MZ67VQ526DBNPG) and [here](https://raw.githubusercontent.com/robseb/HPS2FPGAmapping/master/doc/docPic_04.jpg?token=ABHT5OND6JWVEN7NGHVY4F26DBNQO)
 * Open the “**SDRAM**”-Tab 
   (Do not change the settings of the "HPS-Cock"-Tab)
 * In my GitHub repository is the **.qprs**-memory configuration file "D10STDNANO_DDR3.qprs" included
 * Copy this file to your Quartus Prime project folder and click inside the **HPS component editor** and **presents**-bar the "**new**"-button
-     [Image 5]
+
+    ![Alt text](doc/docPic_05.jpg?raw=true "Picture 05")
+    
 * A **new pressed window** appears, select the **.qprs**-file and name it.
-     [Image 6]
+
+     ![Alt text](doc/docPic_06.jpg?raw=true "Picture 06")
+     
 * Again, close the present window, select in the list the previously imported present and click apply to execute the configuration
 * At this point HPS configuration is done (Press **Finish** to close the window)
 
 ### HPS interconnection
  * The only necessary connection to use the HPS is: **clk_0:clk_in_reset --> hps_0:h2f_cold_reset**
  * Export the **SPI-, UART- ,I2C-, CAN-, memory** and **hps_IO** by double clicking on the *export text filed*
-	 [Image 7]
+ 
+ 	![Alt text](doc/docPic_07.jpg?raw=true "Picture 07")
+	
 * Additionally connect **PIO (Parallel I/O) Intel FPGA IP**-competents to a **HPS-to-FPGA interface** to LEDs or key-switches
-	 [Image 8]
+	
+	![Alt text](doc/docPic_08.jpg?raw=true "Picture 08")
 	 
 * Generate with "**System/Assign Base Addresses**" memory addresses of the HPS Bridge interfaces
 * Finally press the "**Generate HDL...**"-button to build the final platform
@@ -85,6 +97,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 ### Import the HPS Platform to Quartus Prime
  * Add the "*.qip*"- and the "*.sip*" to the project files 
  * Use following Verilog code inside the **top level file** to import this HPS-model:
+ 
 	 ````verilog
 	 base_hps u0 (
 	/////////////////////////////////////////////////// CLOCKS //////////////////////////////////////////////////////
@@ -192,13 +205,13 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		.hps_0_i2c1_scl_in_clk              (scl1_o),         
 		.hps_0_i2c1_out_data                (sda1_o_e),                	
 		.hps_0_i2c1_sda                     (sda1_o),  
-	   ````
+	  	 ````
 	* **CAN0:**
 	   	````verilog
-	 	 .hps_0_can0_rxd                     (can0_rx),           
-	     .hps_0_can0_txd                     (can0_tx),		
-	   ````
-	  * **SPI:**
+	 	.hps_0_can0_rxd                     (can0_rx),           
+	     	.hps_0_can0_txd                     (can0_tx),		
+	  	 ````
+    * **SPI0:**
 	   ````verilog
 		.hps_0_spim0_sclk_out_clk           (spi0_clk),          
 		.hps_0_spim0_txd                    (spi0_mosi),                    
@@ -256,8 +269,9 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	   --> *Tools/TCL Script .../.../hps_sdram_p0:pin_assignments.tcl*
 	*  In case of **Error 14566**: "*The Fitter cannot place 1 periphery component(s) due to conflicts with existing constraints*"
 		  * Run following TCL Command: 
-			    ````shell
-		set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OF````
+			````shell
+			set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OF
+			````
 	 *   To use FPGA I/O-Pins with the HPS is a FPGA configuration necessary
 	 * Both possible ways requiere different  "*.raw*"-files
 		 * For **configuration during the Boot with u-boot** use these export settings:
@@ -281,31 +295,30 @@ In the next parts I show the building process in details. You can skip this guid
 The job of the primary bootloader is the configuration of the HPS and the enabling of all choosen Hard-IP components. During the boot of this bootloader the SDRAM-memory system starts and the secondary bootloader (u-boot) is loaded. 
 For the Building of this bootloader Intel provides within EDS a tool called "**BSP-Editor**".  
 The following illustration shows the Intel EDS BSP Generator Flow for Cyclone V FPGAs:
-[ Iustration Guide p.32] 
+![Alt text](doc/BSPbuildFlow.jpg?raw=true "BSP Build Flow picture")
 
 ### Installation of Intel EDS
 The Intel Embedded Development Suite (EDS) works with Windows and Linux. I prefere **Ubuntu** Linux running as a Virtual Machine.
 
-*  Download Intel FPGA SoC EDS for Linux
-	*  [Download Link](http://fpgasoftware.intel.com/](http://fpgasoftware.intel.com/soceds/18.1/?edition=standard&platform=linux&download_manager=direct)
+*  **Download Intel FPGA SoC EDS for Linux**
+	*  [Download Link](http://fpgasoftware.intel.com/soceds/18.1/?edition=standard&platform=linux&download_manager=direct)
 	* For this tutorial the EDS Version 18 is used
-* Install Intel EDS
+* **Install Intel EDS**
 	* Run following Linux shell command to start the installer
-	[Version change] 
 		````bash
-		chmod +x SoCEDSSetup-19.1.0.670-linux.run
-		sudo ./SoCEDSSetup-19.1.0.670-linux.run
+		chmod +x SoCEDSSetup-18.X.X.XXX-linux.run
+		sudo ./SoCEDSSetup-18.X.X.XXX-linux.run
 		````
 	* At the end of the installation process uncheck: “*Launch DS-5 installation*”, 
-	[ Iustration Guide p.16] 
+		![Alt text](doc/EDSinstall.jpg?raw=true "EDS Installer screenshoot")
 
 ### Generation of the primary bootloader with Intel EDS
-*	Start with this command the Intel EDS shell:
-	 ````bash
-		 cd ~/intelFPGA/18.1/embedded
-		 sudo ./embedded_comand_shell.sh
+*	**Start with this command the Intel EDS shell:**
+		 ````bash
+			 cd ~/intelFPGA/18.1/embedded
+			 sudo ./embedded_comand_shell.sh
 		 ````
-* Use the next EDS Shell command to start Intel EDS BSP-Editor
+* Use the next EDS Shell command to **start Intel EDS BSP-Editor**
 	````bash
 	 (EDS shell)# bsp-editor
 	 ````
@@ -318,9 +331,12 @@ The Intel Embedded Development Suite (EDS) works with Windows and Linux. I prefe
 	* The GUI inside the BSP makes it possible to customize and extend these configurations
 	* All possible settings are documented inside [Intel’s EDS Development Guide](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/ug/ug_soc_eds.pdf) 
 	* Choose SDMMC for the SD-Card as boot source by checking BOOT_FROM_SDMMC at following position:
-		* spl --> boot --> BOOT_FROM_SDMMC
+		* **spl --> boot --> BOOT_FROM_SDMMC**
 	* Enable the FAT-filesystem support:
-		* spl --> boot --> FAT_SUPPORT
+		* **spl --> boot --> FAT_SUPPORT**
+		
+			![Alt text](doc/BSPeditor.jpg?raw=true "BSP Editor picture")
+
 	* Press inside the main BSP-Editor window the "Generate" button 
 	* The application generates all necessary code files for the primary bootloader
 	* Close the BSP Editor
@@ -333,7 +349,7 @@ The BSP-Editor puts the generated primary bootloader code to the folder "softwar
 	````
 * Build the code:
 	````bash
-	make
+	(EDS shell)# make
 	````
 	* **Note:** Be sure that this command was called inside the Intel EDS command shell!
 * The compiler should output after a successfull build a file called "**preloader-mkimage.bin**"
@@ -349,16 +365,69 @@ The important part of the u-boot bootloader is the execution of a bootloader scr
 * Create a new file: "**uboot_cy5.script**"
 * Insert following lines to the script and modify it on your own.
 
- [Insert here the u.boot script p.40]
+	````script
+	#
+	#  u-boot Bootloader script for loading embedded Yocto Linux for the Terasic DE10 Boards #
+	#  Robin Sebastian (2018-20) 
+	#
+	echo ********************************************
+	echo --- starting u-boot boot sequence scipt (u-boot.scr) ---
+	echo -- for Intel Cyclone V SoC-FPGAs to boot rsYocto -- 
+	echo --- by Robin Sebastian (https://github.com/robseb) ---
+	echo ********************************************
 
 
+	# reset environment variables to default
+	env default -a
+	echo --- Set the kernel image ---
 
+	setenv bootimage zImage;
+	# address to which the device tree will be loaded
+	setenv fdtaddr 0x00000100
+	echo --- Set the devicetree image ---
+	setenv fdtimage socfpga.dtb;
+	echo --- set kernel boot arguments, then boot the kernel
+	setenv mmcboot 'setenv bootargs mem=1024M console=ttyS0,115200 root=${mmcroot} rw rootwait; bootz ${loadaddr} - ${fdtaddr}';
+	echo --- load linux kernel image and device tree to memory
+	setenv mmcload 'mmc rescan; ${mmcloadcmd} mmc 0:${mmcloadpart} ${loadaddr} ${bootimage}; ${mmcloadcmd} mmc 0:${mmcloadpart} ${fdtaddr} ${fdtimage}'
+	echo --- command to be executed to read from sdcard ---
+	setenv mmcloadcmd fatload
+	echo --- sdcard fat32 partition number ---
+	setenv mmcloadpart 1
+	echo --- sdcard ext3 identifier ---
+	setenv mmcroot /dev/mmcblk0p2
+	echo --- standard input/output ---
+	setenv stderr serial
+	setenv stdin serial
+	setenv stdout serial
+	# save environment to sdcard (not needed, but useful to avoid CRC errors on a new sdcard)
+	saveenv
+
+	echo --- Programming FPGA ---
+	echo --- load FPGA config to memory
+	# load rbf from FAT partition into memory
+	fatload mmc 0:1 ${fpgadata} socfpga.rbf;
+	echo --- write the FPGA configuration ---
+	#fpga dump 0 ${fpgadata} ${filesize};
+	#fpga dump ${fpgadata} ${filesize};
+	fpga load 0 ${fpgadata} ${filesize};
+	echo --- enable HPS-to-FPGA, FPGA-to-HPS, LWHPS-to-FPGA bridges ---
+
+	bridge enable;
+	echo --- Booting the Yocto Linux ---
+	echo -> load linux kernel image and device tree to memory
+	run mmcload;
+	echo --- set kernel boot arguments, then boot the kernel ---
+	echo *** leaving the u-boot boot sequence scipt (u-boot.script) ***
+	run mmcboot;
+
+	````
  * Run with the EDS shell following command to build the script:
- ````bash
- mkimage –A arm – O linux –T script –C none –a 0 –e 0 \
--n u-boot –d uboot_cy5.script \
-uboot_cy5.script.scr
-````
+	 ````bash
+	 mkimage –A arm – O linux –T script –C none –a 0 –e 0 \
+	-n u-boot –d uboot_cy5.script \
+	uboot_cy5.script.scr
+	````
 * Mkimage generates the compiled script file: "**uboot_cy5.script.scr**"
 * Replace this file inside the **rsYocto SD folder** 
 
@@ -375,59 +444,62 @@ Please follow these guides to build your own embedded Linux or overjump this poi
 During the boot of Linux the Devices Tree is loaded. It contains system specific informations about the drivers to load. 
 It is possible to use the Yocto project to build the device tree as well. I recommend the usage of my handmade published device tree.
 To enable the loading of other drivers for Hard-IP components, like I2C- or CAN-bus, use following lines: 
-
-	*  **UART1:**
+*  **UART1:**
 	````dts
-	hps_0_uart1: serial@0xffc03000 {
-	compatible = "snps,dw-apb-uart-18.1", "snps,dw-apb-uart";
-	reg = <0xffc03000  0x00000100>;
-	interrupt-parent = <&hps_0_arm_gic_0>;
-	interrupts = <0  163  4>;
-	clocks = <&l4_sp_clk>;
-	reg-io-width = <4>; /* embeddedsw.dts.params.reg-io-width type NUMBER */
-	reg-shift = <2>; /* embeddedsw.dts.params.reg-shift type NUMBER */
-	status = "okay"; /* embeddedsw.dts.params.status type STRING */
-	}; //end serial@0xffc03000 (hps_0_uart1)
+	serial1@ffc03000 { // Base address 
+		compatible = "snps,dw-apb-uart-16.1", "snps,dw-apb-uart"; // Drivers to load
+		reg = <0xffc03000 0x1000>;
+		interrupts = <0x0 0xa3 0x4>;
+		reg-shift = <0x2>;
+		reg-io-width = <0x4>;
+		clocks = <0x29>;
+		dmas = <0x34 0x1e 0x34 0x1f>;
+		dma-names = "tx", "rx";
+		phandle = <0x63>;
+		status = "okay"; // Enable this device
+	};
 	````
-	* **I2C1:**
+* **I2C1:**
 	````dts 
-		hps_0_i2c1: i2c@0xffc05000 {
-		compatible = "snps,designware-i2c-18.1", "snps,designware-i2c";
-		reg = <0xffc05000  0x00000100>;
-		interrupt-parent = <&hps_0_arm_gic_0>;
-		interrupts = <0  159  4>;
-		clocks = <&l4_sp_clk>;
-		emptyfifo_hold_master = <1>; /* embeddedsw.dts.params.emptyfifo_hold_master type NUMBER */
-		status = "okay"; /* embeddedsw.dts.params.status type STRING */
-	}; //end i2c@0xffc05000 (hps_0_i2c1)
+	i2c@ffc05000 {
+		#address-cells = <0x1>;
+		#size-cells = <0x0>;
+		compatible = "snps,designware-i2c"; // Driver to load
+		reg = <0xffc05000 0x1000>;
+		resets = <0x24 0x2d>;
+		clocks = <0x29>;
+		interrupts = <0x0 0x9f 0x4>;
+		status = "okay";  // Enable this device
+		clock-frequency = <0x61a80>; // Imported: I2C default freq.= 400kHz
+		phandle = <0x54>;
+	};
 	````
-	*  **SPI1:**
+*  **SPI1:**
 	````dts
-		hps_0_spim0: spi@0xfff00000 {
-		compatible = "snps,dw-spi-mmio-18.1", "snps,dw-spi-mmio", "snps,dw-apb-ssi";
-		reg = <0xfff00000  0x00000100>;
-		interrupt-parent = <&hps_0_arm_gic_0>;
-		interrupts = <0  154  4>;
-		clocks = <&spi_m_clk>;
-		#address-cells = <1>; /* embeddedsw.dts.params.#address-cells type NUMBER */
-		#size-cells = <0>; /* embeddedsw.dts.params.#size-cells type NUMBER */
-		bus-num = <0>; /* embeddedsw.dts.params.bus-num type NUMBER */
-		num-chipselect = <4>; /* embeddedsw.dts.params.num-chipselect type NUMBER */
-		status = "okay"; /* embeddedsw.dts.params.status type STRING */
-	}; //end spi@0xfff00000 (hps_0_spim0)
+	spi@fff00000 {
+		compatible = "snps,dw-spi-mmio-16.1", "snps,dw-spi-mmio", "snps,dw-apb-ssi";
+		#address-cells = <0x1>;
+		#size-cells = <0x0>;
+		reg = <0xfff00000 0x1000>;
+		interrupts = <0x0 0x9a 0x4>;
+		num-cs = <0x4>;
+		clocks = <0x32>;
+		status = "okay";
+		phandle = <0x5c>;
+	};
 	````
-	*  **CAN0:**
+*  **CAN0:**
 	````dts
-	hps_0_dcan0: can@0xffc00000 {
-	compatible = "bosch,dcan-18.1", "bosch,d_can";
-	reg = <0xffc00000  0x00001000>;
-	interrupt-parent = <&hps_0_arm_gic_0>;
-	interrupts = <0  131  4  0  132  4>;
-	interrupt-names = "interrupt_sender0", "interrupt_sender1";
-	clocks = <&can0_clk>;
-	status = "okay"; /* embeddedsw.dts.params.status type STRING */
-	}; //end can@0xffc00000 (hps_0_dcan0)
+	can@ffc00000 {
+			compatible = "bosch,dcan-16.1", "bosch,d_can";
+			reg = <0xffc00000 0x1000>;
+			interrupts = <0x0 0x83 0x4 0x0 0x84 0x4 0x0 0x85 0x4 0x0 0x86 0x4>;
+			clocks = <0x7>;
+			status = "okay";
+			phandle = <0x3a>;
+		};
 	````
+* Note: All in ALTERA linux-socfpga included drivers are [here listed](https://github.com/altera-opensource/linux-socfpga/tree/14c741de93861749dfb60b4964028541f5c506ca/Documentation/devicetree/bindings)
 
 # 6. part:  Generating a bootable Linux image
 
@@ -448,13 +520,13 @@ The next table shows the requiered partitions with their content for this projec
 |\"uboot_cy5.img\"|**-**| Uboot bootloader | **2.Partition: vfat** |       
 |\"uboot_cy5.scr\"|**3** | Uboot bootloader script | **3.Partition: vfat** |   
 |\"zImage_cy5\"|**4** | compressed Linux Kernel  | **3.Partition: vfat** |   
-|\"socfpga_cy5.dts\"|**5** | Linux Device Tree  | **3.Partition: vfat** |   
+|\"socfpga_cy5.dts\"|**-** | Linux Device Tree  | **3.Partition: vfat** |   
 |\"socfpga_nano.rbf\"|**1**| FPGA configuration file written by u-boot| **2.Partition: ext3** |  
 |\"socfpga_nano_linux.rbf\"|**1**| FPGA Configuration that can be written by Linux   | **2.Partition: ext3** |          
 
 . Files from other boards and platforms can be deleted. Replace selfcreated files.
 The folder should now look like this: 
-[Image 9] 
+	![Alt text](doc/docPic_09.jpg?raw=true "Picture 09")
 
 Use following command on a CentOS-Linux computer to start the building script:
 ````bash
@@ -526,13 +598,14 @@ On *rsYocto* the `i2c-tools` are pre-installed: follow [these instructions](http
 		send_one()
     ````
   * Save and close the python file
-  * Connect to the **Adrunio Pin D8** to **CAN TX** and the Pin **D9** to **CAN RX** on a 3.3V Can-Bus Transiver (Pin out)[https://raw.githubusercontent.com/robseb/rsyocto/master/doc/symbols/DE10Nano_pinout.png]
+  * Connect to the **Adrunio Pin D8** to **CAN TX** and the Pin **D9** to **CAN RX** on a 3.3V Can-Bus Transiver [Pin] out)(https://raw.githubusercontent.com/robseb/rsyocto/master/doc/symbols/DE10Nano_pinout.png)
   * Execute the python script
     ```python 
     python3 sendCanPackage.py
     ````
-  * Now the Cyclone V SoC-FPGA transmits a CAN package through the adruno header with the ID 0xC0FFE
-  [Image 10 Osi]
+  * Now the Cyclone V SoC-FPGA transmits a CAN package through the adruno header with the ID 0xC0FFEE
+  
+  	![Alt text](doc/CANoszigram.png?raw=true "CAN Osci")
   
   The embedded Bosch CAN-Controller can detect linkage errors. 
   I case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the CAN Controller shuts down.
@@ -545,7 +618,9 @@ On *rsYocto* the `i2c-tools` are pre-installed: follow [these instructions](http
   In the same way it is also possible to communicate with Audrio Shields via UART,SPI or I2C. 
   On *rsYocto* python scripts for these usecases are preinstalled. 
   
-  
+ With the remote development of Visual Studio it is also possible to write **C++ -applications** to interact with this buses ([see here](https://github.com/robseb/rsyocto/blob/master/doc/guides/3_CPP.md)).
+
+To **read and write the AXI Bridge** or **write the FPGA configuration with the running Linux** please look [here](https://github.com/robseb/rsyocto/blob/master/doc/guides/2_FPGA_HARDIP.md). 
 
 <br>
 
