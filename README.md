@@ -101,29 +101,29 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	 ````verilog
 	 base_hps u0 (
 	/////////////////////////////////////////////////// CLOCKS //////////////////////////////////////////////////////
-			.clk_clk                            	 	(CLOCK_50),       
+			.clk_clk                    (CLOCK_50),       
 			                   
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	  
 	//////////////////////////////////////////// 	HPS    //////////////////////////////////////////////////////////  
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	///////////////////////  Onboard DDR3 1GB Memmory  ///////////////////////////////////
-	      .hps_0_ddr_mem_a                          ( HPS_DDR3_ADDR     ),                     
-	      .hps_0_ddr_mem_ba                         ( HPS_DDR3_BA       ),                        
-	      .hps_0_ddr_mem_ck                         ( HPS_DDR3_CK_P     ),                       
-	      .hps_0_ddr_mem_ck_n                       ( HPS_DDR3_CK_N     ),                       
-	      .hps_0_ddr_mem_cke                        ( HPS_DDR3_CKE      ),                        
-	      .hps_0_ddr_mem_cs_n                       ( HPS_DDR3_CS_N     ),                    
-	      .hps_0_ddr_mem_ras_n                      ( HPS_DDR3_RAS_N    ),                      
-	      .hps_0_ddr_mem_cas_n                      ( HPS_DDR3_CAS_N    ),                      
-	      .hps_0_ddr_mem_we_n                       ( HPS_DDR3_WE_N     ),                      
-	      .hps_0_ddr_mem_reset_n                    ( HPS_DDR3_RESET_N  ),                    
-	      .hps_0_ddr_mem_dq                         ( HPS_DDR3_DQ       ),                        
-	      .hps_0_ddr_mem_dqs                        ( HPS_DDR3_DQS_P    ),                      
-	      .hps_0_ddr_mem_dqs_n                      ( HPS_DDR3_DQS_N    ),                      
-	      .hps_0_ddr_mem_odt                        ( HPS_DDR3_ODT      ),                        
-	      .hps_0_ddr_mem_dm                         ( HPS_DDR3_DM       ),                         
-	      .hps_0_ddr_oct_rzqin                      ( HPS_DDR3_RZQ      ),                         
+	      .hps_0_ddr_mem_a                     ( HPS_DDR3_ADDR     ),                     
+	      .hps_0_ddr_mem_ba                    ( HPS_DDR3_BA       ),                        
+	      .hps_0_ddr_mem_ck                    ( HPS_DDR3_CK_P     ),                       
+	      .hps_0_ddr_mem_ck_n                  ( HPS_DDR3_CK_N     ),                       
+	      .hps_0_ddr_mem_cke                   ( HPS_DDR3_CKE      ),                        
+	      .hps_0_ddr_mem_cs_n                  ( HPS_DDR3_CS_N     ),                    
+	      .hps_0_ddr_mem_ras_n                 ( HPS_DDR3_RAS_N    ),                      
+	      .hps_0_ddr_mem_cas_n                 ( HPS_DDR3_CAS_N    ),                      
+	      .hps_0_ddr_mem_we_n                  ( HPS_DDR3_WE_N     ),                      
+	      .hps_0_ddr_mem_reset_n               ( HPS_DDR3_RESET_N  ),                    
+	      .hps_0_ddr_mem_dq                    ( HPS_DDR3_DQ       ),                        
+	      .hps_0_ddr_mem_dqs                   ( HPS_DDR3_DQS_P    ),                      
+	      .hps_0_ddr_mem_dqs_n                 ( HPS_DDR3_DQS_N    ),                      
+	      .hps_0_ddr_mem_odt                   ( HPS_DDR3_ODT      ),                        
+	      .hps_0_ddr_mem_dm                    ( HPS_DDR3_DM       ),                         
+	      .hps_0_ddr_oct_rzqin                 ( HPS_DDR3_RZQ      ),                         
 	      
 	 /////////////////////////////////////////// HPS Ethernet 1  //////////////////////////////////////////////    
 	      .hps_0_io_hps_io_emac1_inst_TX_CLK ( HPS_ENET_GTX_CLK    ),     
@@ -202,15 +202,15 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		````
 	* **I2C1:**
 		````verilog
-		.hps_0_i2c1_clk_clk            	   (scl1_o_e),              	
-		.hps_0_i2c1_scl_in_clk              (scl1_o),         
-		.hps_0_i2c1_out_data                (sda1_o_e),                	
-		.hps_0_i2c1_sda                     (sda1_o),  
+		.hps_0_i2c1_clk_clk                (scl1_o_e),
+		.hps_0_i2c1_scl_in_clk             (scl1_o),         
+		.hps_0_i2c1_out_data               (sda1_o_e),                	
+		.hps_0_i2c1_sda                    (sda1_o),  
 	  	 ````
 	* **CAN0:**
 	   	````verilog
-	 	.hps_0_can0_rxd                     (can0_rx),           
-	     	.hps_0_can0_txd                    (can0_tx),		
+	 	.hps_0_can0_rxd			    (can0_rx),
+		.hps_0_can0_txd                     (can0_tx),		
 	  	 ````
     * **SPI0:**
 	   ````verilog
@@ -612,21 +612,23 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
   * Now the Cyclone V SoC-FPGA **transmits a CAN package through the Arduino header with the ID 0xABCD**:
   
   	![Alt text](doc/CANoszigram.png?raw=true "CAN Osci")
+
+The embedded *Bosch CAN-Controller* can **detect linkage errors**. 
+I case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the **CAN Controller shuts down**.
+Use the following command to **restart the CAN-Controller**:
+````bash 
+link set can0 down
+ip link set up can0
+````
+<br>
+
+**In the same way it is also possible to communicate with Adrunio Shields via UART,SPI or I²C. 
+On *rsYocto* python scripts for these usecases are preinstalled.** 
   
-  The embedded *Bosch CAN-Controller* can **detect linkage errors**. 
-  I case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the **CAN Controller shuts down**.
-  Use the following command to **restart the CAN-Controller**:
-	````bash 
-	link set can0 down
-	ip link set up can0
-	````
-  
-  **In the same way it is also possible to communicate with Adrunio Shields via UART,SPI or I²C. 
-  On *rsYocto* python scripts for these usecases are preinstalled.** 
-  
- With the *remote development* of *Visual Studio* it is also possible to write **C++ -applications** to interact with these buses ([see here](https://github.com/robseb/rsyocto/blob/master/doc/guides/3_CPP.md)).
+With the *remote development* of *Visual Studio* it is also possible to write **C++ -applications** to interact with these buses ([see here](https://github.com/robseb/rsyocto/blob/master/doc/guides/3_CPP.md)).
 
 To **read and write the AXI Bridge** or **write the FPGA configuration with the running Linux** please look [here](https://github.com/robseb/rsyocto/blob/master/doc/guides/2_FPGA_HARDIP.md). 
+
 
 <br>
 
