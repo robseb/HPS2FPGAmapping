@@ -234,7 +234,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		wire uart1_rx,uart1_tx;
 		//// IO Buffer Temp CAN 0
 		wire can0_rx, can0_tx; 
-      ````
+      		````
 	*  To connect In-/Output-values with physical I/O Pins are **I/O-Buffers** required
 	*  The outputs of these Buffers are connected to the following Arduino shield Pins:
 	
@@ -247,21 +247,32 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 		ALT_IOBUF uart1_rx_iobuf (.i(1'b0), .oe(1'b0), .o(uart1_rx), .io(ARDUINO_IO[1]));
 		// UART1 -> TX
 		ALT_IOBUF uart1_tx_iobuf (.i(uart1_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[0]));
-      ````
+      		````
 		*  **I2C1:**
 		````verilog
-	    // I2C1 -> SCL 
-	    ALT_IOBUF i2c1_scl_iobuf   (.i(1'b0),.oe(scl1_o_e),.o(scl1_o),.io(ARDUINO_IO[15]));
-	  // I2C1 -> SDA 
-	  ALT_IOBUF i2c1_sda_iobuf   (.i(1'b0),.oe(sda1_o_e),.o(sda1_o),.io(ARDUINO_IO[14]));
-	  ````
+	    	// I2C1 -> SCL 
+	    	ALT_IOBUF i2c1_scl_iobuf   (.i(1'b0),.oe(scl1_o_e),.o(scl1_o),.io(ARDUINO_IO[15]));
+	  	// I2C1 -> SDA 
+	  	ALT_IOBUF i2c1_sda_iobuf   (.i(1'b0),.oe(sda1_o_e),.o(sda1_o),.io(ARDUINO_IO[14]));
+	  	````
 		* **CAN0:**
 	   	````verilog
 		// CANO -> RX
 		ALT_IOBUF can0_rx_iobuf (.i(1'b0), .oe(1'b0), .o(can0_rx), .io(ARDUINO_IO[9]));
 		// CAN-> TX
 		ALT_IOBUF can0_tx_iobuf (.i(can0_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[8]));
-	  ````
+	 	 ````
+		 * **SPI0:**
+	   	````verilog
+		// SPI0 -> CS
+		ALT_IOBUF spi0_ss_iobuf    (.i(spi0_ss_0_n), .oe(1'b1), .o(), .io(ARDUINO_IO[10]));
+		// SPI0 -> MOSI
+		ALT_IOBUF spi0_mosi_iobuf  (.i(spi0_mosi), .oe(1'b1), .o(), .io(ARDUINO_IO[11]));
+		// SPI0 -> MISO 
+		ALT_IOBUF spi0_miso_iobuf  (.i(1'b0), .oe(1'b0), .o(spi0_miso), .io(ARDUINO_IO[12]));
+		// SPI0  -> CLK
+		ALT_IOBUF spi0_clk_iobuf   (.i(spi0_clk), .oe(1'b1), .o(), .io(ARDUINO_IO[13]));
+	 	 ````
 	* This Top-level Verilog file is also available inside my Github repository
 	* Save the file
 	
@@ -495,12 +506,12 @@ It is possible to use the Yocto project to build the device tree as well. I reco
 *  **CAN0:**
 	````dts
 	can@ffc00000 {
-			compatible = "bosch,dcan-16.1", "bosch,d_can";
-			reg = <0xffc00000 0x1000>;
-			interrupts = <0x0 0x83 0x4 0x0 0x84 0x4 0x0 0x85 0x4 0x0 0x86 0x4>;
-			clocks = <0x7>;
-			status = "okay";
-			phandle = <0x3a>;
+		compatible = "bosch,dcan-16.1", "bosch,d_can";
+		reg = <0xffc00000 0x1000>;
+		interrupts = <0x0 0x83 0x4 0x0 0x84 0x4 0x0 0x85 0x4 0x0 0x86 0x4>;
+		clocks = <0x7>;
+		status = "okay";
+		phandle = <0x3a>;
 		};
 	````
 * **Note:** All in *ALTERA linux-socfpga* included drivers are [here documentated](https://github.com/altera-opensource/linux-socfpga/tree/14c741de93861749dfb60b4964028541f5c506ca/Documentation/devicetree/bindings)
