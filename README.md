@@ -579,19 +579,17 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
    nano sendCanPackage.py
    ````
   * Insert following lines to this python file as shown in the [python-can documentation](https://python-can.readthedocs.io/en/master/)
-	  ````python
-	    #!/usr/bin/env python
-	    # coding: utf-8
+	````python
+	#!/usr/bin/env python
+	# coding: utf-8
 
-	    """
-	    This example shows how sending a single message works.
-	    """
+	#
+	#This example shows how sending a single message works.
+	#
 
-	    from __future__ import print_function
+	import can
 
-	    import can
-
-	    def send_one():
+	def send_one():
 
 		# this uses the default configuration (for example from the config file)
 		# see https://python-can.readthedocs.io/en/stable/configuration.html
@@ -600,26 +598,27 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
 		bus = can.interface.Bus(bustype='socketcan', channel='can0', bitrate=12500)
 		# ...
 
-		msg = can.Message(arbitration_id=0xABCD,
-				  data=[0, 25, 0, 1, 3, 1, 4, 1],
-				  is_extended_id=False)
+		msg = can.Message(arbitration_id=0xAC,
+			  data=[0xAB, 0xAC, 0xAD, 0xAE],
+			  is_extended_id=False)
 
 		try:
-		    bus.send(msg)
-		    print("Message sent on {}".format(bus.channel_info))
+			bus.send(msg)
+			print("Message sent on {}".format(bus.channel_info))
 		except can.CanError:
-		    print("Message NOT sent")
+			print("Message NOT sent")
 
-	    if __name__ == '__main__':
+
+	if __name__ == '__main__':
 		send_one()
-    ````
+    	````
   * Save and close this python file or **start a debugging session** with *Visual Studio Code Insider*
   * Connect to the **Adrunio Pin D8** to **CAN TX** and the Pin **D9** to **CAN RX** on a 3.3V Can-Bus Transiver
   * **Execute the python script**
     ```python 
     python3 sendCanPackage.py
     ````
-  * Now the Cyclone V SoC-FPGA **transmits a CAN package through the Arduino header with the ID 0xABCD**:
+  * Now the Cyclone V SoC-FPGA **transmits a CAN package through the Arduino header with the ID 0xAC and Payload 0xACADAE**:
   
   	![Alt text](doc/CANoszigram.png?raw=true "CAN Osci")
 
@@ -627,7 +626,7 @@ The embedded *Bosch CAN-Controller* can **detect linkage errors**.
 I case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the **CAN Controller shuts down**.
 Use the following command to **restart the CAN-Controller**:
 ````bash 
-link set can0 down
+link set down can0
 ip link set up can0
 ````
 <br>
