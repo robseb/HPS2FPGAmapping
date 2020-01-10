@@ -66,7 +66,6 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	| SPI Controller 0 (**SPI0**) | *FPGA* | *I2C0 mode="Full"*
 	| CAN Controller 0 (**CAN0**) | *FPGA* | *I2C0 mode="Full"*
 	
-* Screenshots of my configuration are available [here](https://raw.githubusercontent.com/robseb/HPS2FPGAmapping/master/doc/docPic_03.jpg?token=ABHT5ONKTEET4Y4MZ67VQ526DBNPG) and [here](https://raw.githubusercontent.com/robseb/HPS2FPGAmapping/master/doc/docPic_04.jpg?token=ABHT5OND6JWVEN7NGHVY4F26DBNQO)
 * Open the “**SDRAM**”-Tab 
   (Do not change the settings of the "HPS-Cock"-Tab)
 * In my GitHub repository is the **.qprs**-memory configuration file "D10STDNANO_DDR3.qprs" included
