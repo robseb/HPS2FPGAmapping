@@ -618,6 +618,11 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
     ```python 
     python3 sendCanPackage.py
     ````
+  * **Debugging of this code with *Visual Studio Code Insider***
+  
+  	![Alt text](doc/CANdebugging.jpg?raw=true "visual Studio Code debuging")
+   
+    
   * Now the Cyclone V SoC-FPGA **transmits a CAN package through the Arduino header with the ID 0xAC and the Payload 0xABACADAE**:
   	````bash
 	root@cyclone5:~# python3 sendCanPackage.py
