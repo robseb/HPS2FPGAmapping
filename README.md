@@ -633,7 +633,7 @@ In this part shown how simple it is to transmit CAN-packages within a Python scr
 
 If no one acknowledged this package the *Bosch CAN-Controller* *re-transmit* the package with the maximum available resources automatically until a ACK happen.
 The embedded *Bosch CAN-Controller* can also **detect linkage errors**. 
-I case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the **CAN Controller shuts down**.
+In case of a missing connection to a CAN-Bus member a Kernel Message will be triggered and the **CAN Controller shuts down**.
 Use the following command to **restart the CAN-Controller**:
 ````bash 
 link set down can0
