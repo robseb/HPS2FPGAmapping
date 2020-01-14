@@ -49,7 +49,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 * Continue with the “**Peripheral Pins**”-Tab
 * For the usage of DE10-Nano`s HPS components choose the following settings:
 
-	| **Peripheral Name** | **Startus** | **Addional Settings**
+	| **Peripheral Name** | **Status** | **Addional Settings**
 	|:--|:--|:--|
 	| Ethernet Media Access Controller 1 (**EMAC1**) | *HPS I/O Set 0* | *EMAC1 mode: "RGMII"*
 	| SD/MMC Controller (**SDIO**) | *HPS I/O Set 0* | *SDIO mode ="4-bit Data"*
@@ -59,7 +59,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 * This gives the Linux system **SDMMC** as boot source
 * To map the **I²C-, SPI- , UART- and CAN-Bus* to the Arduino interface** by selecting these points addionaly:
 
-	| **Peripheral Name** | **Startus** | **Addional Settings**
+	| **Peripheral Name** | **Status** | **Addional Settings**
 	|:--|:--|:--|
 	| UART Controller 1 (**UART1**) | *FPGA* | *UART0 mode="Full"*
 	| I2C Controller 1 (**I2C1**) | *FPGA* | *I2C0 mode="Full"*
