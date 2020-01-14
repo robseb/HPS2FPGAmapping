@@ -337,8 +337,7 @@ The **Intel Embedded Development Suite (EDS)** works with Windows and Linux. I p
 	````bash
 	 (EDS shell)# bsp-editor
 	 ````
-* The BSP Tool automatically imports all configurations from the Quartus Prime IDE
-* The GUI inside the BSP makes it possible to customize and extend these configurations
+* The BSP Editor automatically imports all configurations from the Quartus Prime IDE
 * All possible settings are documented inside [Intel’s EDS Development Guide](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/ug/ug_soc_eds.pdf) 
 * Create a **new BSP project** by navigating inside the BSP Editor to: "**File / New HPS BSP...**"
 * Select inside the appearing window the **Quartus Prime Handoff Folder** "**.xml**"-file 
