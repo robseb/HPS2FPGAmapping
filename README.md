@@ -573,7 +573,7 @@ The next table shows the requiered partitions with their content for this projec
 	  pre-up /sbin/ip link set can0 type can bitrate 125000 on
 	  up /sbin/ifconfig can0 up
 	 down /sbin/ifconfig can0 down
-   ````
+    ````
   * Save and close the file 
   * The Building script copy that file to the rootFs (*/etc/network/interfaces*)
 
