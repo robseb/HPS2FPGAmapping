@@ -7,8 +7,8 @@
 //            ##    ##  ##    ##       ##    ##     ## ##    ##    ##    ##     ##        
 //            ##     ##  ######        ##     #######   ######     ##     #######         
 //
-//		rsYocto reference FPGA project of the Terasic DE10 Nano Board
-//    		    created by Robin Sebastian (https://github.com/robseb) 
+//						rsYocto reference FPGA project of the Terasic DE10 Nano Board
+//    				 created by Robin Sebastian (https://github.com/robseb) 
 //
 //
 
@@ -60,7 +60,7 @@ module DE10NANOrsyocto(
 
 ////////////////////////////////////////////////// HPS ////////////////////////////////////////////////
 `ifdef USE_HPS
-	//inout 		          	HPS_CONV_USB_N,
+	//inout 		          		HPS_CONV_USB_N,
 	output		    [14:0]		HPS_DDR3_ADDR,
 	output		     [2:0]		HPS_DDR3_BA,
 	output		          		HPS_DDR3_CAS_N,
@@ -88,9 +88,9 @@ module DE10NANOrsyocto(
 	output		     [3:0]		HPS_ENET_TX_DATA,
 	output		          		HPS_ENET_TX_EN,
 	
-	//inout 		          	HPS_GSENSOR_INT,
-	//inout 		          	HPS_I2C0_SCLK,
-	//inout 		        	HPS_I2C0_SDAT,
+	//inout 		          		HPS_GSENSOR_INT,
+	//inout 		          		HPS_I2C0_SCLK,
+	//inout 		          		HPS_I2C0_SDAT,
 	
 	inout 		          		HPS_I2C1_SCLK,
 	inout 		          		HPS_I2C1_SDAT,
@@ -98,7 +98,7 @@ module DE10NANOrsyocto(
 	inout 		          		HPS_KEY,
 	inout 		          		HPS_LED,
 	
-	//inout 		          	HPS_LTC_GPIO,
+	//inout 		          		HPS_LTC_GPIO,
 	output		          		HPS_SD_CLK,
 	inout 		          		HPS_SD_CMD,
 	inout 		     [3:0]		HPS_SD_DATA,
@@ -248,16 +248,16 @@ base_hps u0 (
 		.hps_0_uart1_txd                    (uart1_tx),           
 
 ///////////////////////////////////////////////// I2C1  ///////////////////////////////////////////////
-		.hps_0_i2c1_clk_clk            	    (scl1_o_e),              	
+		.hps_0_i2c1_clk_clk            		(scl1_o_e),              	
 		.hps_0_i2c1_scl_in_clk              (scl1_o),         
 		.hps_0_i2c1_out_data                (sda1_o_e),                	
 		.hps_0_i2c1_sda                     (sda1_o),
 
 ////////////////////////////////////////////////// I2C3  //////////////////////////////////////////////
-		.hps_0_i2c3_scl_in_clk		    (scl3_o_e),
+		.hps_0_i2c3_scl_in_clk					(scl3_o_e),
 		.hps_0_i2c3_clk_clk                 (scl3_o),
-		.hps_0_i2c3_out_data		    (sda3_o_e),
-		.hps_0_i2c3_sda			    (sda3_o),
+		.hps_0_i2c3_out_data					   (sda3_o_e),
+		.hps_0_i2c3_sda							(sda3_o),
 
 //////////////////////////////////////////////// CAN0  ////////////////////////////////////////////////
 		.hps_0_can0_rxd                     (can0_rx),           
@@ -277,27 +277,27 @@ base_hps u0 (
 
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////	  
-////////////////////////////////// 	   On Board Compunents     ////////////////////////////////////  
+////////////////////////////////// 	   On Board Compunents     ////////////////////////////////////////  
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////  HPS LED & KEY  ///////////////////////////////////////////
-      		.hps_0_io_hps_io_gpio_inst_GPIO53  ( HPS_LED),                
-      		.hps_0_io_hps_io_gpio_inst_GPIO54  ( HPS_KEY),   
+      .hps_0_io_hps_io_gpio_inst_GPIO53  ( HPS_LED),                
+      .hps_0_io_hps_io_gpio_inst_GPIO54  ( HPS_KEY),   
 
 //////////////////////////////////	G-Sensor: I2C0 (Terasic Docu I2C1) ////////////////////////////////
 		.hps_0_io_hps_io_i2c0_inst_SDA      (HPS_I2C1_SDAT),      		
 		.hps_0_io_hps_io_i2c0_inst_SCL      (HPS_I2C1_SCLK),      		
 		
 /////////////////////////////////// onboard LEDs, Switches and Keys ///////////////////////////////////
-		.led_pio_external_connection_export (LEDR), // LEDR
-		.pb_pio_external_connection_export  (Switch), 
-		.sw_pio_external_connection_export  (KEY_N),
+		.led_pio_external_connection_export (LEDR),
+		.pb_pio_external_connection_export  (KEY), 
+		.sw_pio_external_connection_export  (SW),
 		
 
 	  
 ////////////////////////////////// HPS -> FPGA GPIO ///////////////////////////////////
-	  .	hps_0_h2f_gp_gp_in					  (32'hACDCACDC),
-	  	.hps_0_h2f_gp_gp_out					  ()
+	  .hps_0_h2f_gp_gp_in					  (32'hACDCACDC),
+	  .hps_0_h2f_gp_gp_out					  ()
 );
 
 
@@ -307,25 +307,25 @@ base_hps u0 (
 		////////////  Arduino Shild IF ///////////////
 
 		///////////////////////////////////////////
-		//  PIN   | Uno func-> mapped func	 //
-		//   D0   | TXD    ->  UART1 RX          //
-		//   D1   | RXD    ->  UART1 TX          //
+		//  PIN   | Uno func-> mapped func		  //
+		//   D0   | TXD    ->  UART1 RX 			  //
+		//   D1   | RXD    ->  UART1 TX 	        //
 		//   D2   | INT0   ->  I2C3 SDA          //
 		//   D3   | INT1   ->  I2C3 SCL          //
-		//   D4   | T0     ->            	 //
+		//   D4   | T0     ->     					  //
 		//   D5   | T1     ->                    //
 		//   D6   | AIN0   ->                    //
-		//   D7   | AIN1    ->                   //
+		//   D7   | AIN1 	 ->                    //
 		//   D8   | CLKO   -> CAN0 TX            //
 		//   D9   | OC1A   -> CAN0 RX            //
 		//  D10   | SS     -> SPIO CS            //
 		//  D11   | MOSI   -> SPIO MOSI          //
-		//  D12   | MISO   -> SPIO MISO          //
+		//  D12   |	MISO   -> SPIO MISO          //
 		//  D13   | SCK    -> SPIO CLK           //
-		//        | GND                          //
-		//   	  | AREF                         //
-		//        |	I2C     -> I2C1 SDA      //
-		//    	  |	I2C     -> I2C1 SCL      //
+		//   		 |	GND                          //
+		//   		 | AREF                         //
+		//   		 |	I2C     -> I2C1 SDA          //
+		//   		 |	I2C     -> I2C1 SCL          //
 		///////////////////////////////////////////
 
 
@@ -353,15 +353,14 @@ base_hps u0 (
 ////////////////////////////////////////// IO Buffer UART1  //////////////////////////////////////////
 	// UART1 -> RX
 	ALT_IOBUF uart1_rx_iobuf (.i(1'b0), .oe(1'b0), .o(uart1_rx), .io(ARDUINO_IO[1]));
-        // UART1 -> TX
+   // UART1 -> TX
 	ALT_IOBUF uart1_tx_iobuf (.i(uart1_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[0]));
 
 ////////////////////////////////////////// IO Buffer CAN0  ///////////////////////////////////////////
 	// CANO -> RX
 	ALT_IOBUF can0_rx_iobuf (.i(1'b0), .oe(1'b0), .o(can0_rx), .io(ARDUINO_IO[9]));
-       // CAN-> TX
+   // CAN-> TX
 	ALT_IOBUF can0_tx_iobuf (.i(can0_tx), .oe(1'b1), .o(), .io(ARDUINO_IO[8]));
-
 	
 
 
