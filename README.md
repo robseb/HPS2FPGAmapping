@@ -167,7 +167,7 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	      .hps_0_io_hps_io_uart0_inst_TX     ( HPS_UART_TX        ), 
 			
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////// 	   On Board Components     ///////////////////////////////////  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////        	   On Board Components     ///////////////////////////////////
 
 	///////////////////////////////////////////  HPS LED & KEY  ///////////////////////////////////////////
 	      .hps_0_io_hps_io_gpio_inst_GPIO53  ( HPS_LED            ),                
@@ -379,7 +379,7 @@ The important part of the u-boot bootloader is the execution of a **bootloader s
 * Create a new file: "**uboot_cy5.script**"
 * Insert following lines to the script and modify it on your own.
 
-	````script
+	````console
 	#
 	#  u-boot Bootloader script for loading embedded Yocto Linux for the Terasic DE10 Boards #
 	#  Robin Sebastian (2018-20) 
@@ -398,39 +398,49 @@ The important part of the u-boot bootloader is the execution of a **bootloader s
 	setenv bootimage zImage;
 	# address to which the device tree will be loaded
 	setenv fdtaddr 0x00000100
+	
 	echo --- Set the devicetree image ---
 	setenv fdtimage socfpga.dtb;
+	
 	echo --- set kernel boot arguments, then boot the kernel
 	setenv mmcboot 'setenv bootargs mem=1024M console=ttyS0,115200 root=${mmcroot} rw rootwait; bootz ${loadaddr} - ${fdtaddr}';
+	
 	echo --- load linux kernel image and device tree to memory
 	setenv mmcload 'mmc rescan; ${mmcloadcmd} mmc 0:${mmcloadpart} ${loadaddr} ${bootimage}; ${mmcloadcmd} mmc 0:${mmcloadpart} ${fdtaddr} ${fdtimage}'
+	
 	echo --- command to be executed to read from sdcard ---
 	setenv mmcloadcmd fatload
+	
 	echo --- sdcard fat32 partition number ---
 	setenv mmcloadpart 1
+	
 	echo --- sdcard ext3 identifier ---
 	setenv mmcroot /dev/mmcblk0p2
+	
 	echo --- standard input/output ---
 	setenv stderr serial
 	setenv stdin serial
 	setenv stdout serial
+	
 	# save environment to sdcard (not needed, but useful to avoid CRC errors on a new sdcard)
 	saveenv
-
+	
 	echo --- Programming FPGA ---
 	echo --- load FPGA config to memory
+	
 	# load rbf from FAT partition into memory
 	fatload mmc 0:1 ${fpgadata} socfpga.rbf;
+	
 	echo --- write the FPGA configuration ---
-	#fpga dump 0 ${fpgadata} ${filesize};
-	#fpga dump ${fpgadata} ${filesize};
 	fpga load 0 ${fpgadata} ${filesize};
+	
 	echo --- enable HPS-to-FPGA, FPGA-to-HPS, LWHPS-to-FPGA bridges ---
-
 	bridge enable;
+	
 	echo --- Booting the Yocto Linux ---
 	echo -> load linux kernel image and device tree to memory
 	run mmcload;
+	
 	echo --- set kernel boot arguments, then boot the kernel ---
 	echo *** leaving the u-boot boot sequence scipt (u-boot.script) ***
 	run mmcboot;
@@ -529,6 +539,7 @@ The next table shows the requiered partitions with their content for this projec
 |\"makersYoctoSDImage.py\"| **-** | the automatic *rsYocto* script | **-** |
 |\"make_sdimage.py\"| **-** | Altera SD image making script | **-**  | 
 |\"infoRSyocto.txt\"| **-**  | rsYocto splech screen Infos | **-**  | 
+|\"network_interfaces.txt\"| **6**  | The Linux Network Interface configuration file (/etc/network/interfaces) | **-**  | 
 | \"rootfs_cy5.tar.gz\"|**4**|compresed rootFs file for Cyclone V  | **2.Partition: ext3** |       
 |\"preloader_cy5.bin\"|**2**| prestage bootloader | **1.Partition: RAW** | 
 |\"uboot_cy5.img\"|**-**| Uboot bootloader | **2.Partition: vfat** |       
@@ -537,6 +548,34 @@ The next table shows the requiered partitions with their content for this projec
 |\"socfpga_cy5.dts\"|**-** | Linux Device Tree  | **3.Partition: vfat** |   
 |\"socfpga_nano.rbf\"|**1**| FPGA configuration file written by u-boot| **2.Partition: ext3** |  
 |\"socfpga_nano_linux.rbf\"|**1**| FPGA Configuration that can be written by Linux   | **2.Partition: ext3** |          
+
+* **Enable the CAN Network interface**
+  * Create the new file: "*network_interfaces.txt*"
+  * This file contains the Linux Network configuration (*/etc/network/interfaces*)
+  * To enable *Ethernet 0* with dynamic iPv4-address request add following lines to this file:
+    ````txt
+    # Ethernet 0
+    auto eth0
+    iface eth0 inet dhcp
+    ````
+  * A Loopback is also necessary:
+    ````txt
+    # The loopback interface
+    auto lo
+    iface lo inet loopback
+    ````
+  * The following instructions enable **CAN 0 Network interface**:
+    ````txt
+    # CAN Bus interface
+    # Enable CAN0 with 125kBit/s
+    auto can0 
+    iface can0 inet manual
+	  pre-up /sbin/ip link set can0 type can bitrate 125000 on
+	  up /sbin/ifconfig can0 up
+	 down /sbin/ifconfig can0 down
+   ````
+  * Save and close the file 
+  * The Building script copy that file to the rootFs (*/etc/network/interfaces*)
 
 * **Files from other boards and platforms can be deleted. Replace selfcreated files.**
 The folder should now look like this: 
