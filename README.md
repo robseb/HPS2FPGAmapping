@@ -696,5 +696,6 @@ To **read and write the AXI Bridge** or **write the FPGA configuration with the 
 Today I'm a Master Student of electronic engineering with the major embedded systems. 
 I ‘m looking for an interesting job offer to share and deepen my shown skills starting summer 2020.
 
-  
+ 
+[![Join the chat at https://gitter.im/rsyocto/community#](https://badges.gitter.im/rsyocto/BlockPets.svg)](https://gitter.im/rsyocto/community#)
   
