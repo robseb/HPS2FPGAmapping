@@ -699,3 +699,9 @@ I ‘m looking for an interesting job offer to share and deepen my shown skills 
 
 [![Gitter](https://badges.gitter.im/rsyocto/community.svg)](https://gitter.im/rsyocto/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Email me!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:git@robseb.de)
+
+[![GitHub stars](https://img.shields.io/github/stars/robseb/HPS2FPGAmapping?style=social)](https://GitHub.com/robseb/HPS2FPGAmapping/stargazers/)
+[![GitHub watchers](https://img.shields.io/github/watchers/robseb/HPS2FPGAmapping?style=social)](https://github.com/robseb/HPS2FPGAmapping/watchers)
+[![GitHub followers](https://img.shields.io/github/followers/robseb?style=social)](https://github.com/robseb)
+
+
