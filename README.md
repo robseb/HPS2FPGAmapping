@@ -457,7 +457,7 @@ The important part of the u-boot bootloader is the execution of a **bootloader s
 
 # 4. Part:  Using the Yocto project to build a custom embedded Linux
 
-Inside my forked [`meta-altera` BSP layer](https://github.com/robseb/meta-altera) I **describe in details how to get started with the Yocto project for Intel SoC-FPGAs**. 
+Inside my designed [`meta-intelfpga` BSP layer](https://github.com/robseb/meta-intelfpga) I **describe in details how to get started with the Yocto project for Intel SoC-FPGAs**. 
 
 Also I published a [Yocto project meta layer](https://github.com/robseb/meta-rstools) to **bring tools to update the FPGA configuration with the running Linux and to interact with simple command with the FPGA fabric**. 
 
