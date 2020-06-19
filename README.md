@@ -62,9 +62,9 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	| **Peripheral Name** | **Status** | **Addional Settings**
 	|:--|:--|:--|
 	| UART Controller 1 (**UART1**) | *FPGA* | *UART0 mode="Full"*
-	| I2C Controller 1 (**I2C1**) | *FPGA* | *I2C0 mode="Full"*
-	| SPI Controller 0 (**SPI0**) | *FPGA* | *I2C0 mode="Full"*
-	| CAN Controller 0 (**CAN0**) | *FPGA* | *I2C0 mode="Full"*
+	| I2C Controller 1 (**I2C1**) | *FPGA* | *I2C1 mode="I2C"*
+	| SPI Controller 0 (**SPI0**) | *FPGA* | *SPI0 mode="Master"*
+	| CAN Controller 0 (**CAN0**) | *FPGA* | *-*
 	
 * Open the “**SDRAM**”-Tab 
   (Do not change the settings of the "HPS-Cock"-Tab)
