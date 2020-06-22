@@ -62,9 +62,9 @@ The first part of this project is the creation of a **Quartus Prime FPGA project
 	| **Peripheral Name** | **Status** | **Addional Settings**
 	|:--|:--|:--|
 	| UART Controller 1 (**UART1**) | *FPGA* | *UART0 mode="Full"*
-	| I2C Controller 1 (**I2C1**) | *FPGA* | *I2C0 mode="Full"*
-	| SPI Controller 0 (**SPI0**) | *FPGA* | *I2C0 mode="Full"*
-	| CAN Controller 0 (**CAN0**) | *FPGA* | *I2C0 mode="Full"*
+	| I2C Controller 1 (**I2C1**) | *FPGA* | *I2C1 mode="I2C"*
+	| SPI Controller 0 (**SPI0**) | *FPGA* | *SPI0 mode="Master"*
+	| CAN Controller 0 (**CAN0**) | *FPGA* | *-*
 	
 * Open the “**SDRAM**”-Tab 
   (Do not change the settings of the "HPS-Cock"-Tab)
@@ -457,7 +457,7 @@ The important part of the u-boot bootloader is the execution of a **bootloader s
 
 # 4. Part:  Using the Yocto project to build a custom embedded Linux
 
-Inside my forked [`meta-altera` BSP layer](https://github.com/robseb/meta-altera) I **describe in details how to get started with the Yocto project for Intel SoC-FPGAs**. 
+Inside my designed [`meta-intelfpga` BSP layer](https://github.com/robseb/meta-intelfpga) I **describe in details how to get started with the Yocto project for Intel SoC-FPGAs**. 
 
 Also I published a [Yocto project meta layer](https://github.com/robseb/meta-rstools) to **bring tools to update the FPGA configuration with the running Linux and to interact with simple command with the FPGA fabric**. 
 
@@ -698,4 +698,10 @@ I ‘m looking for an interesting job offer to share and deepen my shown skills 
 
 
 [![Gitter](https://badges.gitter.im/rsyocto/community.svg)](https://gitter.im/rsyocto/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Email me!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:mail@robseb.de)
+[![Email me!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:git@robseb.de)
+
+[![GitHub stars](https://img.shields.io/github/stars/robseb/HPS2FPGAmapping?style=social)](https://GitHub.com/robseb/HPS2FPGAmapping/stargazers/)
+[![GitHub watchers](https://img.shields.io/github/watchers/robseb/HPS2FPGAmapping?style=social)](https://github.com/robseb/HPS2FPGAmapping/watchers)
+[![GitHub followers](https://img.shields.io/github/followers/robseb?style=social)](https://github.com/robseb)
+
+
