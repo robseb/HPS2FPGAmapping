@@ -19,6 +19,8 @@ how to transmit CAN-Bus Packages with a simple Linux Python script running on an
 This project is a part of my [*rsYocto* embedded Linux system](https://github.com/robseb/rsyocto), 
 that I developed during my master study and I use it here as a reference.
 
+**Note: This project is a bit out of date.... I completely redesigned the [*rsyocto* build system](https://github.com/robseb/rsyocto/blob/rsYocto-1.042/doc/guides/7_customVersions.md) (part 2-6). Please follow Part 1 and consider my [custom *rsyocto* version guide](https://github.com/robseb/rsyocto/blob/rsYocto-1.042/doc/guides/7_customVersions.md). Then you can continue with part 5 to create your Device Tree and with part 7+.  In the future I will update this guide... Many Thanks.**
+
 **The build flow of rsYocto shows the interaction of all required parts.** 
 
 ![Alt text](doc/rsYoctoBuildFlow.jpg?raw=true "rsYocto Build flow")
@@ -686,15 +688,22 @@ With the *remote development* of *Visual Studio* it is also possible to write **
 
 To **read and write the AXI Bridge** or **write the FPGA configuration with the running Linux** please look [here](https://github.com/robseb/rsyocto/blob/master/doc/guides/2_FPGA_HARDIP.md). 
 
-
 <br>
 
 # Author
-* **Robin Sebastian**
+* *rsyocto*; **Robin Sebastian,M.Sc. [(LinkedIn)](https://www.linkedin.com/in/robin-sebastian-a5080220a)**
 
-*rsYocto* a project, that I have fully developed on my own. It is a academic project.
-Today I'm a Master Student of electronic engineering with the major embedded systems. 
-I ‘m looking for an interesting job offer to share and deepen my shown skills starting summer 2020.
+*rsyocto* is a self-developed project in which no other companies are involved. 
+It is specifically designed to serve students and the Linux/FPGA open-source community with its publication on GitHub and its open-source MIT license. 
+In the future, *rsyocto* will retain its open-source status and it will be further developed. 
+
+Due to the enthusiasm of commercial users, special features for industrial, scientific and automotive applications 
+were developed and ready for the implementation in a highly optimazed closed commercial version. 
+Partnerships as an embedded SoC-FPGA design service to fulfil these specific commercial requirements are offered. 
+It should help, besides students with the *rsyocto* open-source version, commercial users, as well.   
+
+**For commercial users, please visit the *rsyocto* embedded service provider website:** 
+[**rsyocto.com**](https://rsyocto.com/)
 
 
 [![Gitter](https://badges.gitter.im/rsyocto/community.svg)](https://gitter.im/rsyocto/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
